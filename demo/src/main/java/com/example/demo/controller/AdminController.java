@@ -1,5 +1,13 @@
 package com.example.demo.controller;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.entity.Doctor;
 import com.example.demo.entity.Patient;
 import com.example.demo.entity.Role;
@@ -13,9 +21,6 @@ import com.example.demo.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -41,7 +46,7 @@ public class AdminController {
   @PostMapping("/users")
   public Long createUser(@RequestBody @Valid UserCreateRequest req) {
     if (users.existsByUsername(req.username()) || users.existsByEmail(req.email())) {
-      // no ConflictException by your choice — use BadRequestException
+      
       throw new BadRequestException("username or email exists");
     }
 
