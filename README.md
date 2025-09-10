@@ -1,39 +1,122 @@
-Smart Healthcare Appointment System
-The Smart Healthcare Appointment System is a Spring Boot 3 application designed to help a hospital manage patients, doctors, and appointments. It also handles prescriptions and medical records. The system integrates core Spring concepts like Bean Lifecycle, IoC, DI, AOP, and Security. It uses a dual-database approach, leveraging both relational databases (MySQL/Postgres) and a NoSQL database (MongoDB).
+🏥 Smart Healthcare Appointment System
 
+A Spring Boot 3 application for managing patients, doctors, appointments, prescriptions, and medical records — built with ❤️ for clean code and modern architecture.
 
-Features
-Functional Requirements
+This project demonstrates core Spring concepts (IoC, DI, AOP, Security, Bean Lifecycle, Testing) and integrates two database worlds:
 
-Authentication & Authorization: Users log in using Basic Auth or JWT and are assigned one of three roles: Admin, Doctor, or Patient. Role-based access controls ensure that each user can only perform specific actions.
+Relational DB (MySQL/Postgres with JPA/Hibernate) for doctors, patients, appointments
 
-User Management: An Admin can manage doctors and patients. Specifically, an Admin can add, update, and remove doctors and register new patients. Patients can also update their own personal details.
+NoSQL DB (MongoDB) for prescriptions & medical records
 
-Appointment Management: Patients can book or cancel appointments. The system prevents double-booking for the same doctor and time. Doctors can also mark appointments as completed.
+✨ Features
+🔐 Authentication & Authorization
 
-Prescriptions & Medical Records: Doctors can add prescriptions, which are stored in MongoDB. Patients can view their prescription history and medical records, which may include notes and lab results.
+Login via Basic Auth or JWT
 
-Logging & Testing: Spring AOP is used to log events like appointment booking and prescription updates. The system is tested using JUnit and Mockito to ensure critical logic, such as the double-booking prevention, and CRUD operations for users are working correctly.
+Roles: Admin, Doctor, Patient
 
-Non-Functional Requirements
+Role-based access:
 
-Security: The system uses role-based authorization and secure endpoints.
+Admin → manage doctors & patients
 
-Caching: Hibernate's first and second-level caching are used to optimize performance for frequently accessed doctor data.
+Doctor → manage appointments & prescriptions
 
+Patient → book/cancel appointments, view records
 
+👩‍⚕️ User & Doctor Management
 
+Admin adds/updates/removes doctors
 
-Project Structure
+Patients can search doctors by specialty
+
+Admin registers new patients
+
+Patients update their own details
+
+📅 Appointment Management
+
+Patients can book / cancel appointments
+
+Prevents double booking
+
+Doctors can mark appointments as completed
+
+💊 Prescriptions & Medical Records
+
+Doctors add prescriptions → stored in MongoDB
+
+Patients view prescription history & lab records
+
+📝 Logging & Testing
+
+Spring AOP logs booking, cancellation, and prescription updates
+
+JUnit + Mockito test:
+
+double-booking prevention
+
+CRUD APIs for patients & doctors
+
+⚙️ Non-Functional Goodies
+
+Security → Spring Security role-based authorization
+
+Caching → Hibernate 1st & 2nd-level caching for doctor data
+
+📚 Example Use Cases
+
+Patient Books Appointment
+
+Patient logs in → searches doctor → books available slot
+
+System prevents double booking → logs via AOP
+
+Doctor Adds Prescription
+
+Doctor selects patient → adds medicines & notes
+
+Stored in MongoDB → instantly viewable by patient
+
+Admin Adds Doctor
+
+Admin registers new doctor
+
+Data saved in relational DB → cached list refreshed
+
+🏗️ Project Structure
 com.example.demo
- ├─ controller/        
- ├─ entity/              
- ├─ repository/            
- ├─ models/                
- ├─ exception/        
- ├─ security/        
- ├─ server/              
- └─ testutil/ 
+ ├─ controller/       # REST Controllers
+ ├─ entity/           # JPA Entities
+ ├─ repository/       # JPA Repositories
+ ├─ models/           # DTOs & API Models
+ ├─ exception/        # Custom Exceptions
+ ├─ security/         # Spring Security Config
+ ├─ server/           # Server Config
+ ├─ service/          # Business Logic Layer
+ └─ testutil/         # Utilities for Testing
 
- TO RUN CODE 
- > ./mvnw clean spring-boot:run -DskipTests              
+🚀 Getting Started
+Prerequisites
+
+Java 17+
+
+Maven 3.9+
+
+MySQL / Postgres
+
+MongoDB
+
+Run the App
+./mvnw clean spring-boot:run -DskipTests
+
+🧪 Tech Stack
+
+Backend: Spring Boot 3
+
+Databases: MySQL/Postgres + MongoDB
+
+Security: Spring Security (JWT, Basic Auth)
+
+Testing: JUnit 5, Mockito
+
+Logging: Spring AOP
