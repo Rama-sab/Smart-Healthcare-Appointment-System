@@ -18,13 +18,12 @@
   <description>Smart Healthcare Appointment System</description>
 
   <properties>
-    <java.version>24</java.version>
-    <maven.compiler.source>24</maven.compiler.source>
-    <maven.compiler.target>24</maven.compiler.target>
+    <!-- Compile against Java 21 (LTS). Boot manages plugin versions. -->
+    <java.version>21</java.version>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -90,27 +89,14 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <jvmArguments>
-            --add-opens java.base/sun.misc=ALL-UNNAMED
-          </jvmArguments>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>24</source>
-          <target>24</target>
-        </configuration>
       </plugin>
     </plugins>
   </build>
