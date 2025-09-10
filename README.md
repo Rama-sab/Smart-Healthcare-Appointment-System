@@ -33,4 +33,7 @@ com.example.demo
  ├─ exception/        
  ├─ security/        
  ├─ server/              
- └─ testutil/               
+ └─ testutil/ 
+
+ TO RUN CODE 
+ > ./mvnw clean spring-boot:run -DskipTests              
