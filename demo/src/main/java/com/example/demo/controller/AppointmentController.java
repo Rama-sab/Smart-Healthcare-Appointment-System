@@ -11,8 +11,10 @@ import com.example.demo.models.AppointmentResponse;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.repository.DoctorRepository;
 import com.example.demo.repository.PatientRepository;
-
+import com.example.demo.service.AppointmentService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -26,13 +28,16 @@ public class AppointmentController {
   private final AppointmentRepository appts;
   private final DoctorRepository doctors;
   private final PatientRepository patients;
+  private final AppointmentService service; 
 
   public AppointmentController(AppointmentRepository appts,
                                DoctorRepository doctors,
-                               PatientRepository patients) {
+                               PatientRepository patients,
+                               AppointmentService service) {
     this.appts = appts;
     this.doctors = doctors;
     this.patients = patients;
+    this.service = service;
   }
 
   @PostMapping("/book")
@@ -85,13 +90,11 @@ public class AppointmentController {
     );
   }
 
-  @PostMapping("/{id}/complete")
-  public AppointmentResponse complete(@PathVariable Long id) {
-    Appointment a = appts.findById(id)
-        .orElseThrow(() -> new NotFoundException("appointment not found"));
-    a.setStatus(AppointmentStatus.COMPLETED);
-    a = appts.save(a);
 
+  @PutMapping("/{id}/complete")
+  @PreAuthorize("hasRole('DOCTOR')")
+  public AppointmentResponse complete(@PathVariable Long id, Authentication auth) {
+    Appointment a = service.markCompleted(id, auth.getName());
     return new AppointmentResponse(
         a.getId(),
         a.getDoctor().getId(),
