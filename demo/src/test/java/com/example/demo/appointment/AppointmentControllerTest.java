@@ -64,7 +64,7 @@ class AppointmentControllerTest {
         existing.setDoctor(d);
         existing.setPatient(p);
         existing.setStartTime(start);
-        existing.setStatus(AppointmentStatus.SCHEDULED); // change if your enum differs
+        existing.setStatus(AppointmentStatus.SCHEDULED); 
 
         when(appointmentRepository.findByDoctorAndStartTime(eq(d), any()))
                 .thenReturn(Optional.of(existing));
